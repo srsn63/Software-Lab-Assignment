@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Teacher Dashboard</title>
+    <script src="/js/app.js"></script>
+</head>
+<body onload="loadTeacherProfile()">
+
+<h2>Teacher Dashboard</h2>
+
+<h3>My Profile</h3>
+<p id="teacherProfile"></p>
+
+<h3>Create Course</h3>
+<input type="text" id="courseTitle" placeholder="Title"/>
+<input type="text" id="courseDesc" placeholder="Description"/>
+<button onclick="createCourse()">Create</button>
+
+<h3>My Courses</h3>
+<ul id="teacherCourses"></ul>
+
+<button onclick="logout()">Logout</button>
+
+</body>
+</html>
