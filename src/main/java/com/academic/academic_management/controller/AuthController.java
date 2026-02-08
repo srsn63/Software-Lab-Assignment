@@ -1,15 +1,27 @@
 package com.academic.academic_management.controller;
 
 
-import com.academic.academic_management.dto.*;
-import com.academic.academic_management.entity.*;
-import com.academic.academic_management.repository.*;
-import com.academic.academic_management.security.JwtUtil;
-import org.springframework.security.authentication.*;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.academic.academic_management.dto.AuthRequest;
+import com.academic.academic_management.dto.AuthResponse;
+import com.academic.academic_management.dto.RegisterRequest;
+import com.academic.academic_management.entity.Role;
+import com.academic.academic_management.entity.Student;
+import com.academic.academic_management.entity.Teacher;
+import com.academic.academic_management.entity.User;
+import com.academic.academic_management.repository.StudentRepository;
+import com.academic.academic_management.repository.TeacherRepository;
+import com.academic.academic_management.repository.UserRepository;
+import com.academic.academic_management.security.JwtUtil;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -71,7 +83,8 @@ public class AuthController {
     public ResponseEntity<?> login(@RequestBody AuthRequest req) {
         try {
             authManager.authenticate(new UsernamePasswordAuthenticationToken(req.getUsername(), req.getPassword()));
-            String token = jwtUtil.generateToken(req.getUsername());
+            User user = userRepo.findByUsername(req.getUsername()).orElseThrow();
+            String token = jwtUtil.generateToken(req.getUsername(), user.getRole().name());
             return ResponseEntity.ok(new AuthResponse(token));
         } catch (AuthenticationException ex) {
             return ResponseEntity.status(401).body("invalid credentials");

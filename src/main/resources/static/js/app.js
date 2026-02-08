@@ -21,16 +21,14 @@ function login() {
 function redirectBasedOnRole() {
     const token = localStorage.getItem("token");
     const payload = JSON.parse(atob(token.split('.')[1]));
-    const role = payload.roles || payload.sub;
+    const role = payload.role;
 
-    if (payload.sub) {
-        // simple assumption:
-        // student usernames start with student
-        if (payload.sub.includes("student"))
+    if (role === "ROLE_STUDENT")
             window.location.href = "/student";
-        else
+        else if (role === "ROLE_TEACHER")
             window.location.href = "/teacher";
-    }
+        else window.location.href  = "/login";
+
 }
 
 function logout() {
