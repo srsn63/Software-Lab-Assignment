@@ -27,5 +27,4 @@ jobs:
           restore-keys: ${{ runner.os }}-maven-
 
       - name: Run tests
-        # run: ./mvnw test --batch-mode
-        run: .\mvnw.cmd test 
+        run: ./mvnw test --batch-mode
