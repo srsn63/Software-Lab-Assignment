@@ -3,6 +3,8 @@ package com.academic.academic_management.dto;
 public class AuthResponse {
     private String token;
 
+    public AuthResponse() {}
+
     public AuthResponse(String token) {
         this.token = token;
     }
