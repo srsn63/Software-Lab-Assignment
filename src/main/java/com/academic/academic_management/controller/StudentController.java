@@ -1,14 +1,25 @@
 package com.academic.academic_management.controller;
 
+import java.util.Set;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.academic.academic_management.dto.CourseDto;
 import com.academic.academic_management.dto.StudentDto;
-import com.academic.academic_management.entity.*;
-import com.academic.academic_management.repository.*;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.http.ResponseEntity;
-import java.util.*;
+import com.academic.academic_management.entity.Course;
+import com.academic.academic_management.entity.Student;
+import com.academic.academic_management.entity.User;
+import com.academic.academic_management.repository.CourseRepository;
+import com.academic.academic_management.repository.StudentRepository;
+import com.academic.academic_management.repository.UserRepository;
 
 @RestController
 @RequestMapping("/api/students")
