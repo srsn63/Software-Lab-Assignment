@@ -1,0 +1,25 @@
+services:
+  db:
+    image: postgres:17
+    environment:
+      POSTGRES_DB: academic_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: rahul
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  app:
+    build: .
+    ports:
+      - "8081:8081"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/academic_db
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: rahul
+    depends_on:
+      - db
+
+volumes:
+  pgdata:
